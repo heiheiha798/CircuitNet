@@ -1,0 +1,14 @@
+routability&ir_drop_prediction/work_dir/*
+
+net_delay_prediction/checkpoints/*
+
+*.pyc
+
+.vscode/*
+
+__pycache__/*
+
+feature_extraction/out/
+feature_extraction/__pycache__/
+feature_extraction/images/
+feature_extraction/LEF/circuitnet.lef
