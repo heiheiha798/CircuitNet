@@ -14,3 +14,4 @@ feature_extraction/images/
 feature_extraction/LEF/circuitnet.lef
 
 /dataset/
+/CircuitNet_pretrained_model/
