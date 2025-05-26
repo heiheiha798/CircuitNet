@@ -12,3 +12,5 @@ feature_extraction/out/
 feature_extraction/__pycache__/
 feature_extraction/images/
 feature_extraction/LEF/circuitnet.lef
+
+/dataset/
