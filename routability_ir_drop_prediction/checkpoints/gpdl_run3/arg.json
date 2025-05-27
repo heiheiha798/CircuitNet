@@ -1,0 +1,28 @@
+{
+    "task": "congestion_gpdl",
+    "save_path": "./checkpoints/gpdl_run3",
+    "pretrained": null,
+    "max_iters": 200000,
+    "plot_roc": false,
+    "arg_file": null,
+    "cpu": false,
+    "dataroot": "../data/congestion",
+    "ann_file_train": "./files/train_N28.csv",
+    "ann_file_test": "./files/test_N28.csv",
+    "dataset_type": "CongestionDataset",
+    "batch_size": 16,
+    "aug_pipeline": [
+        "Flip"
+    ],
+    "model_type": "GPDL",
+    "in_channels": 3,
+    "out_channels": 1,
+    "lr": 0.0002,
+    "weight_decay": 0,
+    "loss_type": "MSELoss",
+    "eval_metric": [
+        "NRMS",
+        "SSIM",
+        "EMD"
+    ]
+}

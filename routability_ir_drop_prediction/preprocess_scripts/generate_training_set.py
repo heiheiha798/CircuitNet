@@ -117,10 +117,8 @@ def parse_args():
 if __name__ == '__main__':
     args = parse_args()
     if args.task == 'congestion':
-        feature_list = ['routability_features_decompressed/macro_region', 'routability_features_decompressed/RUDY/RUDY', 
-        'routability_features_decompressed/RUDY/RUDY_pin']
-        label_list = ['routability_features_decompressed/congestion/congestion_global_routing/overflow_based/congestion_GR_horizontal_overflow', 
-        'routability_features_decompressed/congestion/congestion_global_routing/overflow_based/congestion_GR_vertical_overflow']
+        feature_list = ['macro_region', 'RUDY', 'RUDY_pin']
+        label_list = ['congestion_GR_horizontal_overflow', 'congestion_GR_vertical_overflow']
 
     elif args.task == 'DRC':
         feature_list = ['routability_features_decompressed/macro_region', 'routability_features_decompressed/cell_density', 

@@ -5,6 +5,7 @@ import json
 import torch
 import torch.optim as optim
 from tqdm import tqdm
+import numpy as np
 
 from datasets.build_dataset import build_dataset
 from utils.losses import build_loss
@@ -129,6 +130,7 @@ def train():
     iter_num = 0
     print_freq = 100
     save_freq = 10000
+    loss_history = []
 
     while iter_num < arg_dict['max_iters']:
         with tqdm(total=print_freq) as bar:
@@ -157,12 +159,21 @@ def train():
                 if iter_num % print_freq == 0:
                     break
 
-        print("===> Iters[{}]({}/{}): Loss: {:.4f}".format(iter_num, iter_num, arg_dict['max_iters'], epoch_loss / print_freq))
+        avg_loss = epoch_loss / print_freq
+        print("===> Iters[{}]({}/{}): Loss: {:.4f}".format(iter_num, iter_num, arg_dict['max_iters'], avg_loss))
+        loss_history.append([iter_num, avg_loss])
         if iter_num % save_freq == 0:
             checkpoint(model, iter_num, arg_dict['save_path'])
+            save_file_path = os.path.join(arg_dict['save_path'], 'loss_history.npy')
+            np.save(save_file_path, np.array(loss_history))
+            print(f"Loss history updated to {save_file_path}") # 打印提示信息
+
         epoch_loss = 0
 
-
+    # print("Training finished. Saving loss history...")
+    # save_file_path = os.path.join(arg_dict['save_path'], 'loss_history.npy')
+    # np.save(save_file_path, np.array(loss_history))
+    # print(f"Loss history saved to {save_file_path}")
 
 if __name__ == "__main__":
     train()
