@@ -22,6 +22,11 @@ class Parser(object):
         self.parser.add_argument('--precision', type=str, default='FP32',
                                  choices=['FP32', 'INT8', 'INT4', 'FP8', 'FP4'],
                                  help='Precision for testing (FP32, INT8, INT4, FP8, FP4)')
+        self.parser.add_argument('--quant_target', type=str, default='weights',
+                                 choices=['weights', 'activations', 'both'],
+                                 help='Target for quantization: weights, activations, or both.')
+        self.parser.add_argument('--quant_module', type=str, default='all',
+                                 help='Name of module to quantize (e.g., encoder). Use "all" for the entire model.')
         self.parser.add_argument('--cpu', action='store_true')
         self.get_remainder()
         
