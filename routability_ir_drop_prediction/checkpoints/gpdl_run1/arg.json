@@ -1,7 +1,7 @@
 {
     "task": "congestion_gpdl",
-    "save_path": "./checkpoints/gpdl_run1",
-    "pretrained": "./checkpoints/gpdl_run1/model_iters_180000.pth",
+    "save_path": "./checkpoints/gpdl_run3",
+    "pretrained": null,
     "max_iters": 200000,
     "plot_roc": false,
     "arg_file": null,
