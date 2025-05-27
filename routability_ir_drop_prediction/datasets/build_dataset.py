@@ -33,6 +33,7 @@ def build_dataset(opt):
     pipeline=[aug_methods[i] for i in opt.pop('aug_pipeline')] if 'aug_pipeline' in opt and not opt['test_mode'] else None
     dataset = datasets.__dict__[opt.pop('dataset_type')](**opt, pipeline=pipeline)
     if opt['test_mode']:
-        return DataLoader(dataset=dataset, num_workers=1, batch_size=1, shuffle=False)
+        batch_size = opt.get('batch_size', 16) 
+        return DataLoader(dataset=dataset, num_workers=16, batch_size=batch_size, shuffle=False)
     else:
         return IterLoader(DataLoader(dataset=dataset, num_workers=16, batch_size=opt.pop('batch_size'), shuffle=True, drop_last=True, pin_memory=True))
