@@ -31,6 +31,8 @@ git checkout xxxxxxxx
 
 来切换代码版本。一开始的三个部分都是`git checkout dc9d38c`。
 
+**注**：github仓库的代码可以看，但是不能用我给的命令直接跑测试（因为命令都是绝对路径），并且训练完全不能跑，因为数据集太大了，没放上去（虽然处理后的npy很小，但我懒）。
+
 ## 准备
 
 ```bash
@@ -90,18 +92,22 @@ python test.py --task congestion_gpdl --pretrained /data/home/tianjianyang/Circu
 ```
 
 NRMSE(Normalized root-mean-square error)：归一化均方根误差，是将均方根误差（RMSE）进行归一化处理后的统计数值。它的主要作用是使得不同量级的数据集之间的误差可以进行比较。公式如下：
+
 $$
 RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}
 $$
-其中，$y_i$ 是真实值，$\hat{y}_i$ 是预测值，$n$ 是数据点的数量。
+
+其中， $y_i$ 是真实值， $\hat{y}_i$ 是预测值， $n$ 是数据点的数量。
 
 由于RMSE的数值会受到数据本身量级的影响，为了解决这个问题，NRMSE将RMSE除以一个归一化因子，使得结果通常在0到1之间，或者表示为百分比。在`metrics.py`中定义为
 
 除以真实值的范围（极差）：
+
 $$
 NRMSE = \frac{RMSE}{y_{max} - y_{min}}
 $$
-其中，$y_{max}$ 和 $y_{min}$ 分别是真实值的最大值和最小值。NRMSE的值越小，表示模型的预测效果越好。
+
+其中， $y_{max}$ 和 $y_{min}$ 分别是真实值的最大值和最小值。NRMSE的值越小，表示模型的预测效果越好。
 
 SSIM(Structural Similarity Index Measure)：一种衡量两张图片相似度的指标。它不只比较像素的绝对差异，而是模仿人类视觉系统，通过比较图像的三个核心特征来实现：亮度：图像的明暗程度；对比度：图像的明暗反差；结构：图像的纹理和模式。最终 SSIM 的得分越接近 1，代表两张图片在人眼看来就越相似。
 
@@ -109,7 +115,7 @@ $$
 SSIM(x, y) = \frac{(2\mu_x\mu_y + C_1)(2\sigma_{xy} + C_2)}{(\mu_x^2 + \mu_y^2 + C_1)(\sigma_x^2 + \sigma_y^2 + C_2)}
 $$
 
-其中，$\mu$ 代表均值（亮度），$\sigma^2$ 代表方差（对比度），$\sigma_{xy}$ 代表协方差（结构）。
+其中， $\mu$ 代表均值（亮度）， $\sigma^2$ 代表方差（对比度）， $\sigma_{xy}$` 代表协方差（结构）。
 
 代码在一个滑动的高斯窗口 (`window`)内计算每个像素的局部统计量，然后求平均作为整张图片的最终得分。
 
@@ -129,10 +135,13 @@ tmux attach -t my_training_session
 
 训练20w步，Loss基本锁在0.13。Training-loss随训练迭代次数的变化曲线：
 
-<div style="display: flex; justify-content: center; align-items: center;">   
-    <img src="assets/loss_curve_log.png" height=190 style="margin-right: 10px;">   
-    <img src="assets/loss_curve_linear.png" height=190 style="margin-left: 10px;"> 
-</div>
+<p align="center">
+  <img src="assets/loss_curve_log.png" height=300>
+</p>
+
+<p align="center">
+  <img src="assets/loss_curve_linear.png" height=300>
+</p>
 
 可以看到前几个迭代次数迅速降低了training-loss，从对数图可以看到一直到10万步都有很好的对数下降，但是10万步之后就几乎没什么变化，如同之前说的，基本锁在0.13。
 
